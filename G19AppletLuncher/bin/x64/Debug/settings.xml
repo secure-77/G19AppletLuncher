@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-16"?>
+<AppSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <GlobalSettings>
+    <DebugMode>false</DebugMode>
+    <AppTitle>App Luncher</AppTitle>
+    <TitelColor>#FFA500</TitelColor>
+    <ShowClockInsteadOfTitel>true</ShowClockInsteadOfTitel>
+    <LineColor>#FFFFFF</LineColor>
+    <SelectedEntryColor>#FFA500</SelectedEntryColor>
+    <PrefixSelector>&lt;</PrefixSelector>
+    <SuffixSelector>&gt;</SuffixSelector>
+  </GlobalSettings>
+  <Applications>
+    <Apps>
+      <Name>Menu Item 0</Name>
+      <Path>C:\Windows\System32\calc.exe</Path>
+    </Apps>
+    <Apps>
+      <Name>Menu Item 1</Name>
+      <Path>C:\Windows\System32\calc.exe</Path>
+    </Apps>
+    <Apps>
+      <Name>Menu Item 2</Name>
+      <Path>C:\Windows\System32\calc.exe</Path>
+    </Apps>
+    <Apps>
+      <Name>Menu Item 3</Name>
+      <Path>C:\Windows\System32\calc.exe</Path>
+    </Apps>
+    <Apps>
+      <Name>Menu Item 4</Name>
+      <Path>C:\Windows\System32\calc.exe</Path>
+    </Apps>
+  </Applications>
+</AppSettings>
