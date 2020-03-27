@@ -9,6 +9,7 @@
     <SelectedEntryColor>#FFA500</SelectedEntryColor>
     <PrefixSelector>&lt;</PrefixSelector>
     <SuffixSelector>&gt;</SuffixSelector>
+    <paddingLeft>   </paddingLeft>
   </GlobalSettings>
   <Applications>
     <Apps>

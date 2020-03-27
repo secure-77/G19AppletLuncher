@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 
 [Serializable]
@@ -52,7 +54,8 @@ public class GlobalSettings
     public string LineColor { get; set; }
     public string SelectedEntryColor { get; set; }
     public string PrefixSelector { get; set; }
-    public string SuffixSelector { get; set; }   
+    public string SuffixSelector { get; set; }
+    public string paddingLeft { get; set; }
 }
 
 

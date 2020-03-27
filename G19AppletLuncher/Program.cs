@@ -55,6 +55,7 @@ namespace G19AppletLuncher
         static int selectedColorB;
         static String prefixSelector;
         static String suffixSelector;
+        static String paddingLeft;
         const String appNAME = "NAME";
         const String appPATH = "PATH";
 
@@ -81,6 +82,7 @@ namespace G19AppletLuncher
             prefixSelector = loadedSettings.GlobalSettings.PrefixSelector;
             suffixSelector = loadedSettings.GlobalSettings.SuffixSelector;
             debugOn = loadedSettings.GlobalSettings.DebugMode;
+            paddingLeft = loadedSettings.GlobalSettings.paddingLeft;
 
 
             // init device
@@ -198,7 +200,7 @@ namespace G19AppletLuncher
             try
             {
                 // use background from folder
-                Image img = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + @"test.jpg");
+                Image img = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + @"background.jpg");
                 Bitmap bitmapImage = new Bitmap(img);
 
                 // convert to byte
@@ -283,6 +285,7 @@ namespace G19AppletLuncher
                 settings.GlobalSettings.TitelColor = "#FFA500";
                 settings.GlobalSettings.PrefixSelector = "<";
                 settings.GlobalSettings.SuffixSelector = ">";
+                settings.GlobalSettings.paddingLeft = "   ";
 
                 AppSettings.Save(settings);
                 WriteDebugMessage("default settings created: settings.xml");
@@ -299,7 +302,7 @@ namespace G19AppletLuncher
             for (int i = 0; i <= maxLineNumber; i++)
             {
 
-                LogitechGSDK.LogiLcdColorSetText(i, listEntries[i].Name, lineColorR, lineColorG, lineColorB);
+                LogitechGSDK.LogiLcdColorSetText(i, paddingLeft + listEntries[i].Name, lineColorR, lineColorG, lineColorB);
                 WriteDebugMessage("Add Item: " + listEntries[i].Name);
             }
 
@@ -396,8 +399,8 @@ namespace G19AppletLuncher
         {
             for (int i = 0; i <= maxLineNumber; i++)
             {
-                if (i == until) { LogitechGSDK.LogiLcdColorSetText(i, prefixSelector + getListEntryValue(index, valueType) + suffixSelector, selectedColorR, selectedColorG, selectedColorB); }
-                else { LogitechGSDK.LogiLcdColorSetText(i, getListEntryValue(index + i - maxLineNumber, valueType), lineColorR, lineColorG, lineColorB); }
+                if (i == until) { LogitechGSDK.LogiLcdColorSetText(i, paddingLeft + prefixSelector + getListEntryValue(index, valueType) + suffixSelector, selectedColorR, selectedColorG, selectedColorB); }
+                else { LogitechGSDK.LogiLcdColorSetText(i, paddingLeft + getListEntryValue(index + i - maxLineNumber, valueType), lineColorR, lineColorG, lineColorB); }
                 LogitechGSDK.LogiLcdUpdate();
             }
 
@@ -408,8 +411,8 @@ namespace G19AppletLuncher
         {
             for (int i = 0; i < listEntries.Count; i++)
             {
-                if (i == line) { LogitechGSDK.LogiLcdColorSetText(i, prefixSelector + getListEntryValue(i, valueType) + suffixSelector, selectedColorR, selectedColorG, selectedColorB); }
-                else { LogitechGSDK.LogiLcdColorSetText(i, getListEntryValue(i, valueType), lineColorR, lineColorG, lineColorB); }
+                if (i == line) { LogitechGSDK.LogiLcdColorSetText(i, paddingLeft + prefixSelector + getListEntryValue(i, valueType) + suffixSelector, selectedColorR, selectedColorG, selectedColorB); }
+                else { LogitechGSDK.LogiLcdColorSetText(i, paddingLeft + getListEntryValue(i, valueType), lineColorR, lineColorG, lineColorB); }
             }
 
         }
