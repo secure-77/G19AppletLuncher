@@ -4,23 +4,23 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.IO;
-
+using System.Diagnostics;
 
 namespace G19AppletLuncher
 {
     class Program
     {
-        
+
         /*
          * G19 Applect Luncher
          * use the settings.xml to add some applications you want to 
          * start from the G19 Display Luncher
          * 
          * Autor: Marc Kimpel
-         * Web: https.//secure77.de
-         * Git: 
+         * Web: https://secure77.de
+         * Git: https://github.com/secure-77/G19AppletLuncher
          * 
-         *  --> feel free to modifiy the code as you need 
+         *  --> feel free to modifiy the code as you need !
          * 
          */
 
@@ -38,6 +38,11 @@ namespace G19AppletLuncher
         // page lock to force use back after application execution
         static Boolean noPageLock = true;
 
+        // constants
+        const int g19DisplayLines = 7;
+        const String appNAME = "NAME";
+        const String appPATH = "PATH";
+        const String appletName = "App Luncher";
 
         // global settings
         static Boolean debugOn;
@@ -56,8 +61,8 @@ namespace G19AppletLuncher
         static String prefixSelector;
         static String suffixSelector;
         static String paddingLeft;
-        const String appNAME = "NAME";
-        const String appPATH = "PATH";
+        static int topOffset;
+        static int displayLines;
 
 
 
@@ -83,15 +88,49 @@ namespace G19AppletLuncher
             suffixSelector = loadedSettings.GlobalSettings.SuffixSelector;
             debugOn = loadedSettings.GlobalSettings.DebugMode;
             paddingLeft = loadedSettings.GlobalSettings.paddingLeft;
+            topOffset = loadedSettings.GlobalSettings.topOffset;
+
+
+            
+
+
+            // check if already running
+            Process[] pname = Process.GetProcessesByName(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+            if (pname.Length > 1)
+            {
+                Process currentProcess = Process.GetCurrentProcess();
+                debugOn = true;
+                WriteDebugMessage("App already running need to kill all other...");
+                
+                foreach (Process task in pname)
+                {
+                    if (task.Id != currentProcess.Id)
+                    {
+                        task.Kill();
+                        WriteDebugMessage("Process ID: " + task.Id + " killed");
+                    }
+                }
+                WriteDebugMessage("...Done, but manuel restart is neccessary, press any key to exit..");
+                Console.ReadKey();
+                Environment.Exit(1);            
+            }
+            else
+            {
+                WriteDebugMessage("no other instance is running... start");
+            }
 
 
             // init device
-            InitDevice(loadedSettings.GlobalSettings.AppTitle);
+            InitDevice();
+
 
 
             // initial line numbers, indexe etc. for scrolling and paging
+
+            displayLines = g19DisplayLines - topOffset;
+
             maxIndexNumber = listEntries.Count - 1;
-            if (maxIndexNumber >= 7) { maxLineNumber = 7; } else { maxLineNumber = maxIndexNumber; }
+            if (maxIndexNumber >= displayLines) { maxLineNumber = displayLines; } else { maxLineNumber = maxIndexNumber; }
             int indexNumber = -1;
             int lineNumber = -1;
             int pageNumber = 0;
@@ -161,7 +200,7 @@ namespace G19AppletLuncher
                 }
 
                 // go back (left)
-                if (LogitechGSDK.LogiLcdIsButtonPressed(LogitechGSDK.LOGI_LCD_COLOR_BUTTON_LEFT))
+                if (LogitechGSDK.LogiLcdIsButtonPressed(LogitechGSDK.LOGI_LCD_COLOR_BUTTON_LEFT) | LogitechGSDK.LogiLcdIsButtonPressed(LogitechGSDK.LOGI_LCD_COLOR_BUTTON_CANCEL))
                 {
                     WriteDebugMessage("-> BACK (left) <-- Line " + lineNumber);
                     pageNumber = 0;
@@ -218,10 +257,10 @@ namespace G19AppletLuncher
         }
 
         // init stuff
-        static public void InitDevice(string AppTitle)
+        static public void InitDevice()
         {
             // init aPP 
-            Boolean init = LogitechGSDK.LogiLcdInit(AppTitle, LogitechGSDK.LOGI_LCD_TYPE_COLOR);
+            Boolean init = LogitechGSDK.LogiLcdInit(appletName, LogitechGSDK.LOGI_LCD_TYPE_COLOR);
             WriteDebugMessage("Initial status: " + init);
 
             // check for connection
@@ -274,18 +313,20 @@ namespace G19AppletLuncher
                   settings.Applications.Add(new Apps { Name = "Menu Item 11", Path = @"C:\Windows\System32\calc.exe" });
                   settings.Applications.Add(new Apps { Name = "Menu Item 12", Path = @"C:\Windows\System32\calc.exe" });
                   settings.Applications.Add(new Apps { Name = "Menu Item 13", Path = @"C:\Windows\System32\calc.exe" });
-                  */
+                */
+                  
 
                 settings.GlobalSettings = new GlobalSettings();
                 settings.GlobalSettings.DebugMode = false;
                 settings.GlobalSettings.AppTitle = "App Luncher";
                 settings.GlobalSettings.ShowClockInsteadOfTitel = true;
                 settings.GlobalSettings.LineColor = "#FFFFFF";
-                settings.GlobalSettings.SelectedEntryColor = "#FFA500";
-                settings.GlobalSettings.TitelColor = "#FFA500";
+                settings.GlobalSettings.SelectedEntryColor = "#5ea4d6";
+                settings.GlobalSettings.TitelColor = "#296894";
                 settings.GlobalSettings.PrefixSelector = "<";
                 settings.GlobalSettings.SuffixSelector = ">";
-                settings.GlobalSettings.paddingLeft = "   ";
+                settings.GlobalSettings.paddingLeft = "";
+                settings.GlobalSettings.topOffset = 1;
 
                 AppSettings.Save(settings);
                 WriteDebugMessage("default settings created: settings.xml");
@@ -302,8 +343,7 @@ namespace G19AppletLuncher
             for (int i = 0; i <= maxLineNumber; i++)
             {
 
-                LogitechGSDK.LogiLcdColorSetText(i, paddingLeft + listEntries[i].Name, lineColorR, lineColorG, lineColorB);
-                WriteDebugMessage("Add Item: " + listEntries[i].Name);
+                LogitechGSDK.LogiLcdColorSetText(i + topOffset, paddingLeft + listEntries[i].Name, lineColorR, lineColorG, lineColorB);
             }
 
             LogitechGSDK.LogiLcdUpdate();
@@ -316,12 +356,12 @@ namespace G19AppletLuncher
             RemoveEntries();
 
             // end of page, scroll down
-            if (index >= 8)
+            if (index >= displayLines + 1 - topOffset)
             {
                 Scroll(valueType, line, index, maxLineNumber);
             }
             // scroll up
-            else if (line == 0 & index > 7)
+            else if (line == 0 & index > displayLines)
             {
                 Scroll(valueType, line, index, 0);           
             }
@@ -345,7 +385,7 @@ namespace G19AppletLuncher
 
             try
             {
-                System.Diagnostics.Process.Start(listEntries[line].Path);
+                Process.Start(listEntries[line].Path);
                 WriteDebugMessage("Start Application: " + listEntries[line].Path);
                 
                 // display execute path
@@ -397,10 +437,10 @@ namespace G19AppletLuncher
         // scroll down method
         public static void Scroll(string valueType, int line, int index, int until)
         {
-            for (int i = 0; i <= maxLineNumber; i++)
+            for (int i = 0 ; i <= maxLineNumber; i++)
             {
-                if (i == until) { LogitechGSDK.LogiLcdColorSetText(i, paddingLeft + prefixSelector + getListEntryValue(index, valueType) + suffixSelector, selectedColorR, selectedColorG, selectedColorB); }
-                else { LogitechGSDK.LogiLcdColorSetText(i, paddingLeft + getListEntryValue(index + i - maxLineNumber, valueType), lineColorR, lineColorG, lineColorB); }
+                if (i == until) { LogitechGSDK.LogiLcdColorSetText(i + topOffset, prefixSelector + getListEntryValue(index, valueType) + suffixSelector, selectedColorR, selectedColorG, selectedColorB); }
+                else { LogitechGSDK.LogiLcdColorSetText(i + topOffset, paddingLeft + getListEntryValue(index + i - maxLineNumber, valueType), lineColorR, lineColorG, lineColorB); }
                 LogitechGSDK.LogiLcdUpdate();
             }
 
@@ -409,10 +449,10 @@ namespace G19AppletLuncher
         // no scroling, just change Entry
         public static void NoScroll(string valueType, int line)
         {
-            for (int i = 0; i < listEntries.Count; i++)
+            for (int i = 0 ; i < listEntries.Count; i++)
             {
-                if (i == line) { LogitechGSDK.LogiLcdColorSetText(i, paddingLeft + prefixSelector + getListEntryValue(i, valueType) + suffixSelector, selectedColorR, selectedColorG, selectedColorB); }
-                else { LogitechGSDK.LogiLcdColorSetText(i, paddingLeft + getListEntryValue(i, valueType), lineColorR, lineColorG, lineColorB); }
+                if (i == line) { LogitechGSDK.LogiLcdColorSetText(i + topOffset, prefixSelector + getListEntryValue(i, valueType) + suffixSelector, selectedColorR, selectedColorG, selectedColorB); }
+                else { LogitechGSDK.LogiLcdColorSetText(i + topOffset, paddingLeft + getListEntryValue(i, valueType), lineColorR, lineColorG, lineColorB); }
             }
 
         }

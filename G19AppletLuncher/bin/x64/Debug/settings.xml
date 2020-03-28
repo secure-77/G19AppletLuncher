@@ -3,13 +3,14 @@
   <GlobalSettings>
     <DebugMode>false</DebugMode>
     <AppTitle>App Luncher</AppTitle>
-    <TitelColor>#FFA500</TitelColor>
+    <TitelColor>#296894</TitelColor>
     <ShowClockInsteadOfTitel>true</ShowClockInsteadOfTitel>
     <LineColor>#FFFFFF</LineColor>
-    <SelectedEntryColor>#FFA500</SelectedEntryColor>
+    <SelectedEntryColor>#5ea4d6</SelectedEntryColor>
     <PrefixSelector>&lt;</PrefixSelector>
     <SuffixSelector>&gt;</SuffixSelector>
-    <paddingLeft>   </paddingLeft>
+    <paddingLeft />
+    <topOffset>1</topOffset>
   </GlobalSettings>
   <Applications>
     <Apps>
