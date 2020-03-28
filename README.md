@@ -6,7 +6,7 @@ Smal LCD Applet to start applications from the G19 Keyboard, you can define the 
 <img src="https://github.com/secure-77/G19AppletLuncher/blob/master/Screenshots/Photo.png?raw=true" width="500">
 
 
-### Features
+## Features
 
 - Individual list of applications stored in one config
 - Show details (path) on second page (right button)
@@ -20,19 +20,19 @@ Smal LCD Applet to start applications from the G19 Keyboard, you can define the 
 
 
 
-###Requirements
+## Requirements
 
 - G19 or similiar Keyboard with 320 x 240 color LCD and supports LCD SDK_8.57.148
 - [Logitech Gaming Software (9.0X)](https://support.logi.com/hc/de/articles/360025298053-Logitech-Gaming-Software)
 - .NET 4.6.1
 
-### Installation
+## Installation
 - Compile the c# procject or download latest release from here
 - Copy all the files to your disired location bevor you start the Applet
 - Run G19AppletLuncher.exe
 - Create autostart entry for the G19AppletLuncher.exe
 
-### Settings
+## Settings
 - All settings are stored in the settings.xml, these settings are not user-dependent
 - If there is no settings.xml, the applet will create one with default settings on start
 - background.jpg can be replaced by any other .jpg with resolution 320 x 240px, 
@@ -62,8 +62,8 @@ https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
 
 
 
-### Troubleshooting
-#### If you cant see the app in your display
+## Troubleshooting
+### If you cant see the app in your display
 - make sure the G19AppletLuncher.exe is running (taskmanager)
 - use debugMode to check if there is any error
 - make sure  "App Luncher" is availible and enabled in the Logitech Gaming Software
@@ -72,7 +72,7 @@ https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
 2. restart the Logitech Gaming Software 
 3. start the G19AppletLuncher.exe 
 
-#### If you see more then one "App Luncher" in the LCD or the Logitech Software
+### If you see more then one "App Luncher" in the LCD or the Logitech Software
 This is because the Applet registration depends on the path, so if you move the G19AppletLuncher.exe after you have already startet it, it is possible that appears twice in the menu. Logitech stores this registration information in the settings.json
 
 `C:\Users\<UserName>\AppData\Local\Logitech\Logitech Gaming Software\settings.json`
@@ -90,13 +90,13 @@ Example entry from settings.json
         "name" : "App Luncher"
       },
 ```
-#### If the App Luncher is not responding
+### If the App Luncher is not responding
 make sure only one instance of G19AppletLuncher.exe is running
 1. close the G19AppletLuncher.exe via taskmanager
 2. restart the Logitech Gaming Software 
 3. start the G19AppletLuncher.exe 
 
-### Developer Informations
+## Developer Informations
 | File name | Description                    |
 | ------------- | ------------------------------ |
 | LogitechLcdEnginesWrapper.dll   | c++ to c# wrapper, must be stored in the same folder as the G19AppletLuncher.exe |
@@ -109,7 +109,7 @@ http://gaming.logitech.com/sdk/LCDSDK_8.57.148.zip
 
 
 
-### Example Images
+## Example Images
 
 <img src="https://github.com/secure-77/G19AppletLuncher/blob/master/Screenshots/LCDScreen_kaliStart.png?raw=true" width="300"> <img src="https://github.com/secure-77/G19AppletLuncher/blob/master/Screenshots/LCDScreen_kaliOffset.png?raw=true" width="300"> <img src="https://github.com/secure-77/G19AppletLuncher/blob/master/Screenshots/LCDScreen_kaliExecute.png?raw=true" width="300">
 
