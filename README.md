@@ -3,6 +3,8 @@
 
 Smal LCD Applet to start applications from the G19 Keyboard, you can define the name and path of the applications in the settings.xml. then use the selector of the keyboard to select one entry,  press ok to start the selected application.
 
+<img src="https://github.com/secure-77/G19AppletLuncher/blob/master/Screenshots/Photo.png?raw=true" width="500">
+
 
 ### Features
 
@@ -89,7 +91,7 @@ Example entry from settings.json
       },
 ```
 #### If the App Luncher is not responding
-- make sure only one instance of G19AppletLuncher.exe is running
+make sure only one instance of G19AppletLuncher.exe is running
 1. close the G19AppletLuncher.exe via taskmanager
 2. restart the Logitech Gaming Software 
 3. start the G19AppletLuncher.exe 
@@ -106,10 +108,13 @@ http://gaming.logitech.com/sdk/LCDSDK_8.57.148.zip
 
 ### Example Images
 
+<img src="https://github.com/secure-77/G19AppletLuncher/blob/master/Screenshots/LCDScreen_kaliStart.png?raw=true" width="300"> <img src="https://github.com/secure-77/G19AppletLuncher/blob/master/Screenshots/LCDScreen_kaliOffset.png?raw=true" width="300"> <img src="https://github.com/secure-77/G19AppletLuncher/blob/master/Screenshots/LCDScreen_kaliExecute.png?raw=true" width="300">
+
+<img src="https://github.com/secure-77/G19AppletLuncher/blob/master/Screenshots/LCDScreen_AppLuncher.png?raw=true" width="300"> <img src="https://github.com/secure-77/G19AppletLuncher/blob/master/Screenshots/LCDScreen_lessItems.png?raw=true" width="300"> <img src="https://github.com/secure-77/G19AppletLuncher/blob/master/Screenshots/LCDScreen_manyItems.png?raw=true" width="300">
 
 
-![](https://pandao.github.io/editor.md/examples/images/4.jpg)
 
+<img src="https://github.com/secure-77/G19AppletLuncher/blob/master/Screenshots/Photo3.png?raw=true" width="500"><img src="https://github.com/secure-77/G19AppletLuncher/blob/master/Screenshots/Photo2.png?raw=true" width="500">
 
 
 
