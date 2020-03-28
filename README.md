@@ -99,8 +99,11 @@ make sure only one instance of G19AppletLuncher.exe is running
 ### Developer Informations
 | File name | Description                    |
 | ------------- | ------------------------------ |
-| LogitechLcdEnginesWrapper.dll   | c++ to c# wrapper, must be stored in the same folder as the G19AppletLuncher.exe    |
-Logitech SDK can be found here: https://www.logitechg.com/de-de/innovation/developer-lab.html
+| LogitechLcdEnginesWrapper.dll   | c++ to c# wrapper, must be stored in the same folder as the G19AppletLuncher.exe |
+
+
+Logitech SDK can be found here: 
+https://www.logitechg.com/de-de/innovation/developer-lab.html
 http://gaming.logitech.com/sdk/LCDSDK_8.57.148.zip
 
 
