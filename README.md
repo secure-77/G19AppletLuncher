@@ -77,7 +77,7 @@ This is because the Applet registration depends on the path, so if you move the 
 
 `C:\Users\<UserName>\AppData\Local\Logitech\Logitech Gaming Software\settings.json`
 
-So fix this by simple deleting all json objects with the name "App Luncher", donst worry, the next start of G19AppletLuncher.exe will create a new one.
+So fix this by simple deleting all json objects with the name "App Luncher", dont worry, the next start of G19AppletLuncher.exe will create a new one.
 
 Example entry from settings.json
 ```json
@@ -96,7 +96,7 @@ make sure only one instance of G19AppletLuncher.exe is running
 2. restart the Logitech Gaming Software 
 3. start the G19AppletLuncher.exe 
 
-## Developer Informations
+## Developer Information
 | File name | Description                    |
 | ------------- | ------------------------------ |
 | LogitechLcdEnginesWrapper.dll   | c++ to c# wrapper, must be stored in the same folder as the G19AppletLuncher.exe |
